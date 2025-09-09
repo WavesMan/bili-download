@@ -9,8 +9,8 @@ resolution-markers = [
 ]
 
 [[package]]
-name = "bili-dl"
-version = "1.0.0"
+name = "bili-dl2"
+version = "1.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "pillow", version = "10.4.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },

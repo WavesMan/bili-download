@@ -1,7 +1,7 @@
-# B站视频下载器 (bili-downloader)
+# B站视频下载器 (bili-dl2loader)
 
-[![PyPI version](https://img.shields.io/pypi/v/bili-dl.svg)](https://pypi.org/project/bili-dl/)
-[![Python versions](https://img.shields.io/pypi/pyversions/bili-dl.svg)](https://pypi.org/project/bili-dl/)
+[![PyPI version](https://img.shields.io/pypi/v/bili-dl2.svg)](https://pypi.org/project/bili-dl2/)
+[![Python versions](https://img.shields.io/pypi/pyversions/bili-dl2.svg)](https://pypi.org/project/bili-dl2/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 一个功能强大的B站视频下载工具，支持最高清晰度下载和自动合并。
@@ -23,14 +23,14 @@
 ### 通过 pip 安装
 
 ```bash
-pip install bili-dl
+pip install bili-dl2
 ```
 
 ### 从源码安装
 
 ```bash
-git clone https://github.com/WavesMan/bili-download.git
-cd bili-downloader
+git clone https://github.com/WavesMan/bili-dl2load.git
+cd bili-dl2loader
 pip install -e .
 ```
 
@@ -178,7 +178,7 @@ downloads/
 项目代码结构：
 
 ```
-bili-downloader/
+bili-dl2loader/
 ├── commands/                 # 命令处理模块
 │   ├── download_command.py   # 下载命令处理
 │   ├── login_command.py      # 登录命令处理

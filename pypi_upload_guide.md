@@ -1,6 +1,6 @@
 # PyPI 上传指南
 
-本文档详细说明如何将 bili-downloader 包上传到 PyPI。
+本文档详细说明如何将 bili-dl2loader 包上传到 PyPI。
 
 ## 📋 准备工作
 
@@ -38,7 +38,7 @@ password = pypi-你的token字符串
 
 确保项目包含以下文件:
 ```
-bili-downloader/
+bili-dl2loader/
 ├── setup.py
 ├── pyproject.toml
 ├── MANIFEST.in
@@ -66,17 +66,17 @@ bili-downloader/
 
 **setup.py:**
 ```python
-version="1.0.0"  # 更新版本号
+version="1.0.1"  # 更新版本号
 ```
 
 **pyproject.toml:**
 ```toml
-version = "1.0.0"  # 更新版本号
+version = "1.0.1"  # 更新版本号
 ```
 
 **__init__.py:**
 ```python
-__version__ = "1.0.0"  # 更新版本号
+__version__ = "1.0.1"  # 更新版本号
 ```
 
 ### 步骤 3: 构建包
@@ -96,10 +96,10 @@ python -m build
 
 ```bash
 # 检查打包的文件
-tar -tzf dist/bili-downloader-1.0.0.tar.gz
+tar -tzf dist/bili-dl2loader-1.0.1.tar.gz
 
 # 检查wheel包内容
-unzip -l dist/bili_downloader-1.0.0-py3-none-any.whl
+unzip -l dist/bili_downloader-1.0.1-py3-none-any.whl
 ```
 
 ### 步骤 5: 测试上传到 TestPyPI
@@ -109,7 +109,7 @@ unzip -l dist/bili_downloader-1.0.0-py3-none-any.whl
 python -m twine upload --repository testpypi dist/*
 
 # 从 TestPyPI 安装测试
-pip install --index-url https://test.pypi.org/simple/ bili-downloader
+pip install --index-url https://test.pypi.org/simple/ bili-dl2loader
 ```
 
 ### 步骤 6: 正式上传到 PyPI
@@ -126,7 +126,7 @@ python -m twine upload --repository pypi dist/*
 
 ### 错误: 包名已存在
 
-如果包名 `bili-downloader` 已被占用，需要修改包名：
+如果包名 `bili-dl2loader` 已被占用，需要修改包名：
 
 **setup.py:**
 ```python
@@ -153,9 +153,9 @@ recursive-include config *.json
 
 如果版本已存在，需要更新版本号:
 ```bash
-# 更新为 1.0.0
-sed -i 's/version="1.0.0"/version="1.0.0"/' setup.py
-sed -i 's/version = "1.0.0"/version = "1.0.0"/' pyproject.toml
+# 更新为 1.0.1
+sed -i 's/version="1.0.1"/version="1.0.1"/' setup.py
+sed -i 's/version = "1.0.1"/version = "1.0.1"/' pyproject.toml
 ```
 
 ## 📊 版本管理规范

@@ -114,17 +114,17 @@ class ConfigManager:
             },
             "ffmpeg": {
                 "path": "auto",
-                "auto_merge": true,
-                "delete_temp_files": true
+                "auto_merge": "true",
+                "delete_temp_files": "true"
             },
             "network": {
                 "proxy": "",
                 "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
             },
             "debug": {
-                "enable_logging": false,
+                "enable_logging": "false",
                 "log_level": "INFO",
-                "save_response": false
+                "save_response": "false"
             }
         }
         

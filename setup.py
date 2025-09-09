@@ -10,14 +10,14 @@ with open('requirements.txt', 'r', encoding='utf-8') as f:
     requirements = [line.strip() for line in f if line.strip() and not line.startswith('#')]
 
 setup(
-    name="bili-dl",
-    version="1.0.0",
+    name="bili-dl2",
+    version="1.0.1",
     author="B站视频下载器",
     author_email="",
     description="一个功能强大的B站视频下载工具，支持最高清晰度下载和自动合并",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/WavesMan/bili-download",
+    url="https://github.com/WavesMan/bili-dl2load",
     packages=find_packages(include=['config', 'modules', 'utils', 'commands']),
     py_modules=['main'],
     classifiers=[
@@ -47,7 +47,7 @@ setup(
     },
     keywords="bilibili, video, download, b站, 视频下载",
     project_urls={
-        "Bug Reports": "https://github.com/WavesMan/bili-download/issues",
-        "Source": "https://github.com/WavesMan/bili-download",
+        "Bug Reports": "https://github.com/WavesMan/bili-dl2load/issues",
+        "Source": "https://github.com/WavesMan/bili-dl2load",
     },
 )

@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bili-dl"
-version = "1.0.0"
+name = "bili-dl2"
+version = "1.0.1"
 description = "一个功能强大的B站视频下载工具，支持最高清晰度下载和自动合并"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -40,9 +40,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/WavesMan/bili-downloader"
-BugTracker = "https://github.com/WavesMan/bili-downloader/issues"
-Source = "https://github.com/WavesMan/bili-downloader"
+Homepage = "https://github.com/WavesMan/bili-dl2loader"
+BugTracker = "https://github.com/WavesMan/bili-dl2loader/issues"
+Source = "https://github.com/WavesMan/bili-dl2loader"
 
 [project.scripts]
 bili-dl = "main:main"
