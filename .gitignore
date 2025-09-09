@@ -173,3 +173,4 @@ ENV/
 # Build artifacts
 /build/
 /dist/
+./qrcode.png
