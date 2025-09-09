@@ -3,11 +3,11 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bili-downloader"
+name = "bili-dl"
 version = "1.0.0"
 description = "一个功能强大的B站视频下载工具，支持最高清晰度下载和自动合并"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 license = {text = "MIT License"}
 authors = [
     {name = "B站视频下载器"}
@@ -40,16 +40,16 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/your-username/bili-downloader"
-BugTracker = "https://github.com/your-username/bili-downloader/issues"
-Source = "https://github.com/your-username/bili-downloader"
+Homepage = "https://github.com/WavesMan/bili-downloader"
+BugTracker = "https://github.com/WavesMan/bili-downloader/issues"
+Source = "https://github.com/WavesMan/bili-downloader"
 
 [project.scripts]
 bili-dl = "main:main"
 
 [tool.setuptools]
 package-dir = {"" = "."}
-packages = ["config", "modules", "utils"]
+packages = ["config", "modules", "utils", "commands"]
 
 [tool.setuptools.package-data]
-"config" = ["*.json"]
+"config" = ["*.json.template"]

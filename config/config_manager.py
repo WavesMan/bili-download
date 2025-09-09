@@ -137,6 +137,8 @@ config_manager = ConfigManager()
 def init_config() -> bool:
     """初始化配置"""
     if not os.path.exists(config_manager.config_path):
+        print("配置文件不存在，正在创建默认配置文件...")
+        print("注意：首次使用请运行 'bili-dl login' 命令登录B站账号")
         return config_manager.create_default_config()
     return config_manager.load_config()
 

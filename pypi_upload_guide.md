@@ -153,9 +153,9 @@ recursive-include config *.json
 
 如果版本已存在，需要更新版本号:
 ```bash
-# 更新为 1.0.1
-sed -i 's/version="1.0.0"/version="1.0.1"/' setup.py
-sed -i 's/version = "1.0.0"/version = "1.0.1"/' pyproject.toml
+# 更新为 1.0.0
+sed -i 's/version="1.0.0"/version="1.0.0"/' setup.py
+sed -i 's/version = "1.0.0"/version = "1.0.0"/' pyproject.toml
 ```
 
 ## 📊 版本管理规范
