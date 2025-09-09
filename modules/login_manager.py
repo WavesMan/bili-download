@@ -41,6 +41,36 @@ class LoginManager:
         except Exception as e:
             self.logger.error(f"检查登录状态失败: {e}")
             return False
+
+    def verify_cookie_availability(self) -> Tuple[bool, Optional[str]]:
+        """
+        验证Cookie可用性并返回状态和消息
+        
+        Returns:
+            Tuple[bool, Optional[str]]: (是否可用, 状态消息)
+        """
+        try:
+            # 测试获取用户信息（需要登录的API）
+            url = "https://api.bilibili.com/x/web-interface/nav"
+            response = self.session.get(url)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('code') == 0:
+                    user_data = data.get('data', {})
+                    if user_data.get('isLogin', False):
+                        username = user_data.get('uname', '未知用户')
+                        return True, f"Cookie有效 - 已登录用户: {username}"
+                    else:
+                        return False, "Cookie已失效，需要重新登录"
+                else:
+                    return False, f"Cookie验证失败: {data.get('message', '未知错误')}"
+            else:
+                return False, f"HTTP请求失败: {response.status_code}"
+                
+        except Exception as e:
+            self.logger.error(f"Cookie验证异常: {e}")
+            return False, f"Cookie验证异常: {str(e)}"
     
     def get_qrcode_login_url(self) -> Tuple[Optional[str], Optional[str]]:
         """获取二维码登录URL和oauthKey"""
@@ -205,12 +235,24 @@ def init_login() -> bool:
     # 如果需要自动登录
     login_method = get_config('user.login_method', 'qrcode')
     if login_method == 'qrcode':
-        return login_manager.qrcode_login()
+        success = login_manager.qrcode_login()
+        if success:
+            # 登录成功后，确保session包含最新的Cookie
+            cookies = get_user_cookies()
+            if cookies:
+                login_manager.set_cookies(cookies)
+        return success
     elif login_method == 'password':
         username = get_config('user.username')
         password = get_config('user.password')
         if username and password:
-            return login_manager.password_login(username, password)
+            success = login_manager.password_login(username, password)
+            if success:
+                # 登录成功后，确保session包含最新的Cookie
+                cookies = get_user_cookies()
+                if cookies:
+                    login_manager.set_cookies(cookies)
+            return success
     
     return False
 

@@ -197,6 +197,100 @@ class VideoInfoManager:
             self.logger.error(f"获取视频下载信息失败: {e}")
             raise
 
+    def get_video_download_info_with_fallback(self, bvid: str, ignore_login: bool = False) -> Dict[str, Any]:
+        """
+        获取视频下载信息，支持登录状态降级
+        
+        Args:
+            bvid: 视频BV号
+            ignore_login: 是否忽略登录状态，强制使用访客模式
+            
+        Returns:
+            视频下载信息，包含降级后的清晰度信息
+        """
+        try:
+            # 获取视频基本信息（不需要登录）
+            video_info = self.get_video_info(bvid)
+            title = video_info['title']
+            cid = video_info['cid']
+            
+            # 清晰度降级策略（从高到低）
+            fallback_qualities = [
+                127,  # 8K超高清
+                126,  # 杜比视界
+                125,  # HDR真彩色
+                120,  # 4K超清
+                116,  # 1080P60高帧率
+                112,  # 1080P+高码率
+                100,  # 智能修复
+                80,   # 1080P高清
+                74,   # 720P60高帧率
+                64,   # 720P高清
+                32,   # 480P清晰
+                16,   # 360P流畅
+                6     # 240P极速
+            ]
+            
+            last_exception = None
+            used_quality = None
+            
+            # 尝试从最高清晰度开始降级
+            for quality in fallback_qualities:
+                try:
+                    # 获取流信息
+                    stream_data = self.get_video_stream_url(bvid, cid, quality=quality)
+                    
+                    # 检查是否成功获取到流信息
+                    if stream_data and 'dash' in stream_data or 'durl' in stream_data:
+                        used_quality = quality
+                        break
+                        
+                except Exception as e:
+                    last_exception = e
+                    self.logger.debug(f"清晰度 {quality} 获取失败: {e}")
+                    continue
+            
+            # 如果所有清晰度都失败，抛出最后一个异常
+            if used_quality is None and last_exception:
+                raise last_exception
+            
+            # 如果使用了降级后的清晰度，重新获取流信息确保一致性
+            if used_quality != 80:
+                stream_data = self.get_video_stream_url(bvid, cid, quality=used_quality)
+            
+            return {
+                'video_info': video_info,
+                'stream_data': stream_data,
+                'best_quality': used_quality or 64,  # 默认720P
+                'title': title,
+                'cid': cid,
+                'bvid': bvid,
+                'is_fallback': used_quality != self.get_highest_quality_available(stream_data) if used_quality else False
+            }
+            
+        except Exception as e:
+            self.logger.error(f"获取视频下载信息（降级模式）失败: {e}")
+            
+            # 如果忽略登录状态，尝试使用最低清晰度
+            if ignore_login:
+                try:
+                    # 使用最低清晰度（360P）作为最后手段
+                    stream_data = self.get_video_stream_url(bvid, cid, quality=16)
+                    return {
+                        'video_info': video_info,
+                        'stream_data': stream_data,
+                        'best_quality': 16,
+                        'title': title,
+                        'cid': cid,
+                        'bvid': bvid,
+                        'is_fallback': True
+                    }
+                except Exception:
+                    # 如果连最低清晰度都失败，抛出原始异常
+                    raise e
+            else:
+                raise
+
 # 全局视频信息管理器实例
 video_info_manager = VideoInfoManager()
 
@@ -215,3 +309,7 @@ def get_highest_quality_available(stream_data: Dict[str, Any]) -> int:
 def get_video_download_info(bvid: str) -> Dict[str, Any]:
     """获取视频下载信息"""
     return video_info_manager.get_video_download_info(bvid)
+
+def get_video_download_info_with_fallback(bvid: str, ignore_login: bool = False) -> Dict[str, Any]:
+    """获取视频下载信息，支持登录状态降级"""
+    return video_info_manager.get_video_download_info_with_fallback(bvid, ignore_login)

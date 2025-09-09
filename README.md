@@ -177,13 +177,3 @@ bili-dl BV1A6aRz4EBU --login
 
 本项目仅用于学习和研究目的，请勿用于商业用途。下载的视频请遵守相关法律法规和B站用户协议。
 
-## 📞 支持
-
-如果您遇到问题或有建议，请：
-1. 查看 [常见问题](#常见问题)
-2. 提交 [Issue](https://github.com/your-username/bili-downloader/issues)
-3. 查看 [文档](docs/)
-
----
-
-**享受下载的乐趣！** 🎉
